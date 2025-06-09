@@ -1,0 +1,60 @@
+openapi: 3.1.0
+info:
+  title: Fair Influencer API
+  version: 1.0.0
+  description: Fetch influencer analytics from Fair Indonesia platform
+
+servers:
+  - url: https://api.fair-indonesia.com
+
+paths:
+  /api/client/analyzer:
+    post:
+      summary: Get influencer analytics
+      operationId: fetchCreatorAnalytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                identifier:
+                  type: string
+                  description: Influencer username
+                platform:
+                  type: string
+                  description: Platform ID (UUID for TikTok or Instagram)
+              required:
+                - identifier
+                - platform
+      responses:
+        '200':
+          description: Successfully retrieved influencer data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates if the request was successful
+                  data:
+                    type: object
+                    description: Influencer analytics data
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+      security:
+        - apiKeyAuth: []
+
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas: {}

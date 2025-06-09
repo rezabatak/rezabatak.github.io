@@ -1,0 +1,22 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "Fair Influencer Fetcher",
+    "name_for_model": "fairInfluencerFetcher",
+    "description_for_human": "Get analytics data of influencers from the Fair API",
+    "description_for_model": "Use this tool to fetch influencer analytics given a username and platform ID (Instagram or TikTok).",
+    "auth": {
+      "type": "api_key",
+      "authorization_type": "header",
+      "verification_tokens": {
+        "openai": "replace-with-your-token-if-needed"
+      }
+    },
+    "api": {
+      "type": "openapi",
+      "url": "https://rezabatak.github.io/fair_api.yaml",
+      "is_user_authenticated": false
+    },
+    "logo_url": "https://cdn.insightiq.ai/platforms_logo/logos/logo_instagram.png",
+    "contact_email": "batak@alva.digital",
+    "legal_info_url": "https://alva.digital"
+  }
