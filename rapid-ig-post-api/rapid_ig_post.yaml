@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
-  title: Instagram Posts by Username (via FlashAPI)
-  version: 1.0.0
-  description: Fetches recent Instagram posts by username using the FlashAPI RapidAPI service.
+  title: Instagram Post Fetcher via FlashAPI
+  version: 1.0.2
+  description: Fetches recent Instagram posts by username using FlashAPI on RapidAPI.
 
 servers:
   - url: https://flashapi1.p.rapidapi.com
@@ -10,24 +10,35 @@ servers:
 paths:
   /ig/posts_username/:
     get:
-      summary: Get Instagram posts by username
+      summary: Get recent Instagram posts by username
       operationId: getInstagramPosts
       parameters:
-        - in: query
-          name: user
+        - name: user
+          in: query
+          required: true
+          description: Instagram username (without @)
+          schema:
+            type: string
+        - name: nocors
+          in: query
+          required: false
+          description: Set to false to get full CORS-compliant data
+          schema:
+            type: string  # Some APIs treat boolean as string, so use string to match ?nocors=false
+        - name: x-rapidapi-host
+          in: header
           required: true
           schema:
             type: string
-          description: Instagram username (without @)
-        - in: query
-          name: nocors
-          required: false
+            default: flashapi1.p.rapidapi.com
+        - name: x-rapidapi-key
+          in: header
+          required: true
           schema:
-            type: boolean
-          description: Set to false to get full response data
+            type: string
       responses:
         '200':
-          description: A list of Instagram posts
+          description: Successfully retrieved post data
           content:
             application/json:
               schema:
@@ -39,19 +50,10 @@ paths:
                     type: array
                     items:
                       type: object
-        '400':
-          description: Invalid request
         '401':
-          description: Unauthorized (invalid API key)
+          description: Unauthorized – check API key
         '500':
           description: Server error
-      security:
-        - rapidapiKey: []
 
 components:
-  securitySchemes:
-    rapidapiKey:
-      type: apiKey
-      in: header
-      name: x-rapidapi-key
   schemas: {}
