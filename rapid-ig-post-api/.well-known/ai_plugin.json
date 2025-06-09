@@ -1,0 +1,22 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Instagram Post Fetcher",
+  "name_for_model": "instagramPostFetcher",
+  "description_for_human": "Get Instagram posts by username using FlashAPI.",
+  "description_for_model": "Fetch recent Instagram posts given a username using FlashAPI via RapidAPI.",
+  "auth": {
+    "type": "api_key",
+    "authorization_type": "custom",
+    "custom_headers": {
+      "x-rapidapi-key": "Your API key from RapidAPI"
+    }
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://yourdomain.com/ig_posts_api.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://cdn.insightiq.ai/platforms_logo/logos/logo_instagram.png",
+  "contact_email": "batak@alva.digital",
+  "legal_info_url": "https://alva.digital"
+}

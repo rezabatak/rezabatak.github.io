@@ -1,0 +1,57 @@
+openapi: 3.1.0
+info:
+  title: Instagram Posts by Username (via FlashAPI)
+  version: 1.0.0
+  description: Fetches recent Instagram posts by username using the FlashAPI RapidAPI service.
+
+servers:
+  - url: https://flashapi1.p.rapidapi.com
+
+paths:
+  /ig/posts_username/:
+    get:
+      summary: Get Instagram posts by username
+      operationId: getInstagramPosts
+      parameters:
+        - in: query
+          name: user
+          required: true
+          schema:
+            type: string
+          description: Instagram username (without @)
+        - in: query
+          name: nocors
+          required: false
+          schema:
+            type: boolean
+          description: Set to false to get full response data
+      responses:
+        '200':
+          description: A list of Instagram posts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: array
+                    items:
+                      type: object
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized (invalid API key)
+        '500':
+          description: Server error
+      security:
+        - rapidapiKey: []
+
+components:
+  securitySchemes:
+    rapidapiKey:
+      type: apiKey
+      in: header
+      name: x-rapidapi-key
+  schemas: {}
